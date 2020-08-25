@@ -1,0 +1,126 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@{
+    IPagedList<LeadTrix.BAL.Employee>
+    model = ViewData["Employees"] as IPagedList<LeadTrix.BAL.Employee>
+        ;
+        }
+        @{
+        ViewBag.Title = "Employees";
+        Layout = "~/Views/Shared/_CompanyLayoutPage.cshtml";
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <div class="haedingpage">
+                    <div class="leftheadcol">
+
+                        <h1>Employee List</h1>
+                    </div>
+                    <div class="rightsidecol">
+                        <a role="button" href="/Company/CreateEmployee" class="mbtn mgento"><i class="fas fa-plus"></i> Add <span>Employee</span></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inerdatatable table_pad">
+                    <table border="0" cellpadding="0" cellspacing="0" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Profile Image</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>EmailID</th>
+                                <th>MobileNo</th>
+                                @*
+                                <th>Job Location</th>*@
+                                <th>Status</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int count = 0; }
+
+                            @if (Convert.ToInt16(Request.QueryString["page"]) == 0)
+                            {
+                            count = 0;
+                            }
+                            else
+                            {
+                            count = (Convert.ToInt16(Request.QueryString["page"]) - 1) * 10;
+                            }
+
+                            @if (model != null && model.Count() != 0)
+                            {
+
+                            foreach (var item in model)
+                            {
+                            count++;
+                            <tr>
+                                <td>@count</td>
+
+                                <td><img class="w-50" src="~/Usefull/Manager/@ViewBag.CompanyID/Employee/@item.EmployeeID/@item.EmployeeID@item.ProfilePic" /></td>
+                                <td>@item.FullName</td>
+                                <td>@item.Designation </td>
+                                <td>@item.OfficeEmailID</td>
+                                <td>@item.OfficeMobileNo</td>
+                                @*
+                                <td>@item.JobLocation</td>*@
+                                <td>
+                                    @if (item.IsActive == true)
+                                    {
+                                    <i class="fa fa-check-circle text-success" data_toggle="tooltip" , title="Employee is Active"></i>
+                                    }
+                                    else
+                                    {
+                                    <i class="fa fa-times-circle text-danger" data_toggle="tooltip" , title="Employee is Inactive"></i>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.IsActive == true)
+                                    {
+                                    @Html.ActionLink("Inactive", "InactiveEmployee", new { id = item.EmployeeID }, new { @class = "btn badge badge-danger text-white"})
+
+                                    }
+                                    else
+                                    {
+                                    @Html.ActionLink("Active", "ActiveEmployee", new { id = item.EmployeeID }, new { @class = "btn badge badge-success text-white" })
+
+                                    }
+
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "EditEmployee", new { id = item.EmployeeID }, new { @class = "btn badge badge-info text-white", data_toggle = "tooltip", title = "Click to Edit" })
+
+                                </td>
+                            </tr>
+                            }
+
+                            }
+                            else
+                            {
+                            <tr>
+                                <td colspan="10">No Records Found.</td>
+                            </tr>
+                            }
+
+
+                        </tbody>
+
+                    </table>
+                    @if (model.Count() > 0 && model != null)
+                    {
+                    <div class="pagbtn">
+                        @Html.PagedListPager(model, page => Url.Action("Employees", new { page }), new PagedListRenderOptions() { })
+                    </div>
+                    }
+                </div>
+
+            </div>
+            @TempData["Msg"]
+        </div>
+
+

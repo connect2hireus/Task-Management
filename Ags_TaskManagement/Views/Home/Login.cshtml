@@ -1,0 +1,84 @@
+﻿@model Ags_TaskManagement.BAL.Employee
+
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1">
+    <title>Login</title>
+    <link href="/Content/css/style.css" type="text/css" rel="stylesheet" />
+    <link href="/Content/css/bootstrap.css" type="text/css" rel="stylesheet" />
+    <link href="/Content/css/all.css" type="text/css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+
+
+<body>
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <section class="mainsec">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="loginwrap">
+                            <div class="loginner">
+                                <div class="heading">
+
+                                    <h3><i class="fa fa-key"></i> Login</h3>
+                                </div>
+                                <div class="loginbox">
+                                    <form action="#" method="post">
+                                        <div class="fm-group">
+                                            @Html.TextBoxFor(model => model.OfficeEmailID, new { @class = "log-cont", @placeholder = "Email", @autocomplete="off" })
+                                            @Html.ValidationMessageFor(model => model.OfficeEmailID, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="fm-group">
+                                            @Html.TextBoxFor(model => model.Password, new { @class = "log-cont", @placeholder = "Password", @autocomplete = "off",type="Password" })
+                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                                        </div>
+                                        <div class="fm-group">
+                                            <button type="submit" class="btnlogin">Login</button>
+                                        </div>
+                                        <div class="text-center">
+                                            <b class="text-danger">@ViewBag.Message</b>
+                                        </div>
+                                    </form>
+                                </div>
+                               
+                                @*<div class="loginfoot">
+                                    <h5><a href="#">Forget Password</a></h5>
+                                    <p><span>No Account ?</span><a href="">SignUp</a></p>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    }
+
+    <!--all script-->
+    <script src="/Content/js/jquery-cdn.js" type="text/javascript"></script>
+    <script src="/Content/js/popover.js" type="text/javascript"></script>
+    <script src="/Content/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/Content/js/stacktable.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="/Content/js/main-js.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.validate.min.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+</body>
+</html>

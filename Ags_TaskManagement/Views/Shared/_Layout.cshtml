@@ -1,0 +1,227 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1">
+    <title>TASK MANAGEMENT</title>
+    <link href="/Content/css/style.css" type="text/css" rel="stylesheet" />
+    <link href="/Content/css/bootstrap.css" type="text/css" rel="stylesheet" />
+    <link href="/Content/css/all.css" type="text/css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+</head>
+<body>
+    @{
+        string roleid = string.Empty;
+    }
+    @if (Request.IsAuthenticated.Equals(true))
+    {
+        roleid = User.Identity.Name.Split('|')[1];
+    }
+    <section class="mainsec">
+        <!--topse-->
+        <section class="topsec">
+            <header class="header contpadlr">
+                <div class="leftsearch">
+                    <div class="naviconside">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="rightmenu">
+                    <div class="rightin">
+                        <div class="Clintname">
+                           <h5>Welcome @User.Identity.Name.Split('|')[3]</h5>
+                        </div>
+                        <div class="userdropdown">
+                            <span>
+                                <a href="#"><img src="~/Usefull/connect.png" alt=""></a>
+                                <ul>
+                                    <li><a href=""><span><img src="~/Usefull/connect.png" alt=""></span>Profile</a></li>
+                                    <li>@*@Html.ActionLink("Signout","Signout","Admin",null)*@<a href="/Home/Logout"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                @*@if (Request.IsAuthenticated.Equals(true))
+                {
+                    if (roleid == "13")
+                    {
+                        @Html.Action("Partial_HeaderMenu", "Task")
+                    }
+                    if (roleid == "2")
+                    {
+                        @Html.Action("Partial_HeaderMenu", "Manager")
+                    }
+                }*@
+            </header>
+        </section>
+        <!--aside navigation-->
+        <aside class="asidenav">
+            <div class="inneraside">
+                <div class="mainlogo">
+                    <img src="~/Usefull/connect.png" alt="" />
+                </div>
+                <div class="navbox full-height">
+                    <div class="navigationbox">
+                        <div class="headingnav">
+                            <h1>Navigations</h1>
+                        </div>
+                        @if (Request.IsAuthenticated.Equals(true))
+                        {
+                            if (roleid == "1")
+                            {
+                                <div class="navigation">
+                                    <h2 id="Dashboard"><i class="fas fa-tachometer-alt"></i><a href="/Task/Dashboard">Dashboard</a></h2>
+                                </div>
+                                <div class="navigation">
+                                    <h2 id="Quick_Lead"><i class="fas fa-tachometer-alt"></i><a href="/Manager/CreateEmployee">Add Employee</a></h2>
+                                </div>
+                                <div class="navigation">
+                                    <h2 id="Dashboard"><i class="fas fa-tachometer-alt"></i><a href="/Manager/Employees">Manage Employee</a></h2>
+                                </div>
+                                @*<div class="navigation">
+                    <h2 id="Quick_Lead"><i class="fas fa-tachometer-alt"></i><a href="/Task/TaskMaster">Task Master</a></h2>
+                </div>*@
+                                @*<div class="navigation">
+                    <h2 id="Follow_Up_Lead"><i class="fas fa-tachometer-alt"></i><a href="/Task/SearchTaskMaster">Report Task Master</a></h2>
+                </div>*@
+                                @*<div class="navigation">
+                    <h2 id="creategp"><i class="fas fa-tachometer-alt"></i><a href="/Marketing/CreateGroup">Create Group</a></h2>
+                </div>
+                <div class="navigation">
+                    <h2 id="creategp"><i class="fas fa-tachometer-alt"></i><a href="/Marketing/DistributionGroups">Distribution Group</a></h2>
+                </div>*@
+                            }
+                            else if (roleid == "2")
+                            {
+                                <div class="navigation">
+                                    <h2 id="Dashboard"><i class="fas fa-tachometer-alt"></i><a href="/Manager/Dashboard">Dashboard</a></h2>
+                                </div>
+                                <div class="navigation">
+                                    <h2 id="Dashboard"><i class="fas fa-tachometer-alt"></i><a href="/Manager/CreateEmployee">Add Employee</a></h2>
+                                </div>
+                                <div class="navigation">
+                                    <h2 id="Dashboard"><i class="fas fa-tachometer-alt"></i><a href="/Manager/Employees">Manage Employee</a></h2>
+                                </div>
+                                <div class="navigation">
+                                    <h2 id="AddProject"><i class="fas fa-tachometer-alt"></i><a href="/Manager/CreateProject">Add Project</a></h2>
+                                </div>
+                                <div class="navigation">
+                                    <h2 id="AddProject"><i class="fas fa-tachometer-alt"></i><a href="/Manager/ProjectReport">Manage Project</a></h2>
+                                </div>
+                            }
+                            else if (roleid == "3")
+                            {
+                                <div class="navigation">
+                                    <h2 id="Dashboard"><i class="fas fa-tachometer-alt"></i><a href="/Manager/Dashboard">Dashboard</a></h2>
+                                </div>
+                                <div class="navigation">
+                                    <h2 id="AddProject"><i class="fas fa-tachometer-alt"></i><a href="/Manager/CreateProject">Add Project</a></h2>
+                                </div>
+                                <div class="navigation">
+                                    <h2 id="AddProject"><i class="fas fa-tachometer-alt"></i><a href="/Manager/ProjectReport">Manage Project</a></h2>
+                                </div>
+                            }
+
+
+                            @*if (roleid == "13")
+            {
+                <div class="navigation">
+                    <h2 id="Dashboard"><i class="fas fa-tachometer-alt"></i><a href="/Manager/Dashboard">Dashboard</a></h2>
+                </div>
+            }*@
+                        }
+                        @*<div class="navigation">
+            <h2 class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+            <ul>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <h2><i class="fas fa-chalkboard-teacher"></i> Lead Master</h2>
+            <ul>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <h2><i class="fas fa-vector-square"></i> Lead Status</h2>
+            <ul>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <h2><i class="fas fa-search"></i> Search</h2>
+            <ul>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="">Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <h2><i class="far fa-clock"></i> Time Line</h2>
+        </div>
+        <div class="navigation">
+            <h2><i class="fas fa-user-check"></i> Un Mark</h2>
+        </div>
+        <div class="navigation">
+            <h2><i class="fas fa-book"></i> Closing Report</h2>
+        </div>
+        <div class="navigation">
+            <h2><i class="far fa-envelope"></i> Email Closing Report</h2>
+        </div>
+        <div class="navigation">
+            <h2><i class="far fa-chart-bar"></i> Sales Report</h2>
+        </div>*@
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+        <!--body sec-->
+        <section class="bodysec">
+            <div class="bodywrap contpadlr" id='table'>
+                @RenderBody()
+            </div>
+        </section>
+    </section>
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Content/js/jquery-cdn.js" type="text/javascript"></script>
+    <script src="/Content/js/popover.js" type="text/javascript"></script>
+    <script src="/Content/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/Content/js/stacktable.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="/Content/js/main-js.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @RenderSection("scripts", false)
+    <script>
+        $(document).ready(function () {
+            $(".tadata a").hover(function () {
+                $('.overdetails').css("display", "block");
+            },
+                function () {
+                    $('.overdetails').css("display", "block");
+                });
+        });
+    </script>
+
+</body>
+</html>

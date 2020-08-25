@@ -1,0 +1,66 @@
+﻿@model Ags_TaskManagement.BAL.TaskMaster
+
+@{
+    ViewBag.Title = "Create New Task";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("TaskMaster", "Task", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @Html.ValidationSummary(true)
+                <div class="boxstyle pt-2 row form_design">
+                    <div class="form-group col-md-6">
+                        <label>Lead Project</label>
+                        @Html.DropDownListFor(model => model.ProjectId, new SelectList(ViewBag.project, "Value", "Text"), "Select Project", new { @class = "form-control", @placeholder = "Select Your Project", @autocomplete = "Off", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label>Task Title</label>
+                        @Html.TextBoxFor(model => model.TaskTitle, new { @class = "form-control", @placeholder="Enter Task Title" })
+                        @Html.ValidationMessageFor(model => model.TaskTitle, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label>Date</label>
+                        @Html.TextBoxFor(model => model.Date, new { @class = "form-control input-append datepicker", @placeholder = "Select Date", @autocomplete = "Off", @required = "required",type="date" })
+                        @*<span class="input-appendicon"><i class="fas fa-calendar-alt"></i></span>*@
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label>Duration</label>
+                        @Html.TextBoxFor(model => model.Duration, new { @class = "form-control", @placeholder = "Only in Min", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+
+                    <div class="form-group col-md-6">
+
+                        <label>Reamrks</label>
+                        @Html.TextBoxFor(model => model.Reamrk, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Reamrk, "", new { @class = "text-danger" })
+
+                    </div>
+ 
+                    <div class="form-group col-md-12">
+                        <input id="btnsbumit" type="submit" value="Submit" class="mbtn mgento mt8" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

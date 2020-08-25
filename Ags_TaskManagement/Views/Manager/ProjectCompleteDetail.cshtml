@@ -1,0 +1,234 @@
+﻿@model Ags_TaskManagement.BAL.Manager
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+IPagedList<Ags_TaskManagement.BAL.Manager> Model = ViewData["Searchresult"] as IPagedList<Ags_TaskManagement.BAL.Manager>;
+IPagedList<Ags_TaskManagement.BAL.Manager> Modeltask = ViewData["SearchTask"] as IPagedList<Ags_TaskManagement.BAL.Manager>;
+}
+
+@{
+    ViewBag.Title = "Project Working Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--header page row-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="haedingpage">
+            <div class="leftheadcol">
+
+                <h1>Project Working Report</h1>
+            </div>
+            @*<div class="rightsidecol">
+                <a role="button" href="/Marketing/CreateLead" class="mbtn mgento"><i class="fas fa-plus"></i> Quick <span>Lead</span></a>
+            </div>*@
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="boxstyle">
+            @*<div class="headbox">
+                <h1>Leads [@Model.TotalItemCount]</h1>
+            </div>*@
+
+            <div class="contbox tablecol">
+               
+                <div class="inerdatatable table_pad table-responsive">
+                    <table border="0" cellpadding="0" cellspacing="0" class="table table-hover">
+                        <tbody>
+                            @{int count = 0; }
+
+                            @if (Convert.ToInt16(Request.QueryString["page"]) == 0)
+                            {
+                                count = 0;
+                            }
+                            else
+                            {
+                                count = (Convert.ToInt16(Request.QueryString["page"]) - 1) * 10;
+                            }
+
+                            @if (Model != null && Model.Count() != 0)
+                            {
+
+                                foreach (var item in Model)
+                                {
+                                    count++;
+                                            <tr>
+                                                <th>S.No.</th>
+                                                <td>@count</td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <th>Project Title</th>
+                                                <td>@item.Title</td>
+
+                                            </tr>
+                                            <tr>
+                                                <th>Start Date</th>
+                                                <td>@item.StartDate</td>
+
+                                            </tr>
+                                            <tr>
+                                                <th>End Date</th>
+                                                <td>@item.EndDate </td>
+
+                                            </tr>
+                                            <tr>
+                                                <th>Description</th>
+                                                <td>@item.Description </td>
+
+                                            </tr>
+                                            <tr>
+                                                <th>Website</th>
+                                                <td>@item.Website</td>
+
+                                            </tr>
+                                            <tr>
+                                                <th>Project Manager</th>
+                                                <td>@item.ProjectManager</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="15">No Records Found.</td>
+                                        </tr>
+                                    }
+                                  
+
+
+                                </tbody>
+
+                    </table>
+
+                    
+                </div>
+                
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        
+    </div>
+    <div class="col-md-12 mt-3">
+        <div class="boxstyle">
+            @*<div class="headbox">
+                <h1>Leads [@Model.TotalItemCount]</h1>
+            </div>*@
+
+            <div class="contbox tablecol">
+
+                <div class="inerdatatable table_pad table-responsive">
+                    
+
+                    <table border="0" cellpadding="0" cellspacing="0" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Project Title</th>
+                                <th>Employee Name</th>
+                                <th>Task Title</th>
+                                <th>Task Date</th>
+                                <th>Duration</th>
+                                <th>Reamrks</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int count1 = 0; }
+                            @if (Convert.ToInt16(Request.QueryString["page"]) == 0)
+                            {
+                                count1 = 0;
+                            }
+                            else
+                            {
+                                count1 = (Convert.ToInt16(Request.QueryString["page"]) - 1) * 10;
+                            }
+
+
+                            @if (Modeltask != null && Modeltask.Count() != 0)
+                            {
+
+                                foreach (var dr in Modeltask)
+                                {
+                                    count1++;
+                                    <tr>
+                                        <td>@count1</td>
+                                        <td>@dr.ProjectTitle</td>
+                                        <td>@dr.EmployeName</td>
+                                        <td>@dr.TaskTitle </td>
+                                        <td>@dr.TaskDate </td>
+                                        <td>@dr.Duration</td>
+                                        <td>@dr.Reamrk</td>
+
+
+                                    </tr>
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="15">No Records Found.</td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Dashboard").addClass("active");
+        });
+        $(function () {
+
+
+
+
+            $("#fromDate").datepicker({
+                beforeShowDay: function (date) {
+                    var dayOfWeek = date.getDay();
+                    // 0 : Sunday, 1 : Monday, ...
+                    //if (dayOfWeek == 0 || dayOfWeek == 6) return [false];
+                    return [true];
+                }
+            });
+
+            $("#toDate").datepicker({
+                beforeShowDay: function (date) {
+                    var dayOfWeek = date.getDay();
+                    // 0 : Sunday, 1 : Monday, ...
+                    //if (dayOfWeek == 0 || dayOfWeek == 6) return [false];
+                    return [true];
+                }
+            });
+        });
+    </script>
+
+}

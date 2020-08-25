@@ -1,0 +1,222 @@
+﻿@model Ags_TaskManagement.BAL.Admin
+
+@{
+    ViewBag.Title = "ADD EMPLOYEE";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Employee</h2>
+@using (Html.BeginForm("CreateEmployee", "Manager", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="container">
+    <div class="haedingpage" id="divMsg">
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.ValidationSummary(true)
+            <div class="boxstyle pt-2 row form_design">
+
+                <div class="form-group col-md-4">
+                    <label>Employee Name</label>
+                    @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Designation</label>
+                    @Html.DropDownListFor(model => model.Designation, new SelectList(ViewBag.Designation, "Value", "Text"), "Select Designation", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Role Name</label>
+                    @Html.DropDownListFor(model => model.RoleID, new SelectList(ViewBag.Role, "Value", "Text"), "Select Role", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Official EmailID</label>
+                    @Html.TextBoxFor(model => model.OfficeEmailID, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OfficeEmailID, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Personal MailId</label>
+                    @Html.TextBoxFor(model => model.PersonalMailId, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PersonalMailId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Official MobileNo</label>
+                    @Html.TextBoxFor(model => model.OfficeMobileNo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OfficeMobileNo, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Personal MobileNo</label>
+                    @Html.TextBoxFor(model => model.PersonalMobileNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PersonalMobileNumber, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Job Country</label>
+                    @Html.DropDownListFor(model => model.JobCountry, new SelectList(ViewBag.Country, "Value", "Text"), "Select Country", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.JobCountry, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Job State</label>
+                    @Html.DropDownList("JobState", new SelectList(string.Empty, "Value", "Text"), "Select State", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.JobState, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Job City</label>
+                    @Html.DropDownList("JobCity", new SelectList(string.Empty, "Value", "Text"), "Select City", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.JobCity, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Job Location</label>
+                    @Html.TextBoxFor(model => model.JobLocation, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.JobLocation, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Pin Code</label>
+                    @Html.TextBoxFor(model => model.ObjPinCode, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ObjPinCode, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Communication Skill</label>
+                    @Html.TextBoxFor(model => model.CommunicationSkill, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CommunicationSkill, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Password</label>
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", type = "password" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+
+
+                @*<div class="form-group col-md-4">
+                    <label>Qualification</label>
+                    @Html.TextBoxFor(model => model.Qualification, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+                </div>*@
+                <div class="form-group col-md-4">
+                    <label>Communication Address</label>
+                    @Html.TextBoxFor(model => model.CommunicationAddress, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CommunicationAddress, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Permanent Address</label>
+                    @Html.TextBoxFor(model => model.PermanentAddress, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PermanentAddress, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Adhaar Number</label>
+                    @Html.TextBoxFor(model => model.AdhaarNo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AdhaarNo, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label>PAN Number</label>
+                    @Html.TextBoxFor(model => model.PANNO, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PANNO, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Profile Pic</label>
+                    @Html.TextBoxFor(model => model.ProfilePic, null, new { @class = "form-control", type = "file" })
+                    @Html.ValidationMessageFor(model => model.ProfilePic, "", new { @class = "text-danger" })
+                </div>
+
+                <div class=" form-group col-md-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+
+@section scripts
+{
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+
+            //bind states
+            $('#JobCountry').change(function () {
+                if ($(this).children("option:selected").val() != '') {
+
+                    var id = $(this).children("option:selected").val();
+                    $.ajax({
+                        url: '@Url.Action("GetStates", "Manager")',
+                        datatype: 'json',
+                        type: 'get',
+                        contenttype: 'application/json',
+                        data: {id:id},
+                        success: function (State) {
+                            if (State != 'Notfound') {
+                                $("#JobState").empty();
+                                $("#JobState").append('<option value="">Select State</option>');
+
+                                $.each(State, function (i, state) {
+
+                                    $("#JobState").append('<option value="' + state.Value + '">' +
+                                        state.Text + '</option>');
+                                    // here we are adding option for States
+
+
+                                });
+                            }
+                            else {
+                                $("#JobState").empty();
+                                $("#JobState").append('<option value="">Select State</option>');
+                            }
+                        },
+                        error: function () {
+                            alert("Error!. something wrong")
+                        }
+                    });
+
+                }
+            });
+
+            //bind City
+            $('#JobState').change(function () {
+                if ($(this).children("option:selected").val() != '') {
+                    
+                    var id = $(this).children("option:selected").val();
+                    $.ajax({
+                       url: '@Url.Action("GetCities", "Manager")',
+                        datatype: 'json',
+                        type: 'get',
+                        contenttype: 'application/json',
+                        data: {id:id},
+                        success: function (City) {
+                            if (City != 'Notfound') {
+                                $("#JobCity").empty();
+                                $("#JobCity").append('<option value="">Select City</option>');
+
+                                $.each(City, function (i, city) {
+
+                                    $("#JobCity").append('<option value="' + city.Value + '">' +
+                                        city.Text + '</option>');
+                                    // here we are adding option for CITY
+
+
+                                });
+                            }
+                            else {
+                                $("#JobCity").empty();
+                                $("#JobCity").append('<option value="">Select City</option>');
+                            }
+                        },
+                        error: function () {
+                            alert("Error!. something wrong")
+                        }
+                    });
+
+                }
+            });
+
+        });
+    </script>
+}

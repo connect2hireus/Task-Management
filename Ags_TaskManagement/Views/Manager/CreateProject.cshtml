@@ -1,0 +1,113 @@
+﻿@model Ags_TaskManagement.BAL.Admin
+
+@{
+    ViewBag.Title = "Create New Project";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("CreateProject", "Manager", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @Html.ValidationSummary(true)
+                <div class="boxstyle pt-2 row form_design">
+                    <div class="form-group col-md-6">
+                        <label>Project Title</label>
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", @placeholder = "Enter New Project" })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label>Start Date</label>
+                        @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control input-append datepicker", @placeholder = "Select Date", @autocomplete = "Off", @required = "required", type = "date" })
+                        @*<span class="input-appendicon"><i class="fas fa-calendar-alt"></i></span>*@
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label>End Date</label>
+                        @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control input-append datepicker", @placeholder = "Select Date", @autocomplete = "Off", @required = "required", type = "date" })
+                        @*<span class="input-appendicon"><i class="fas fa-calendar-alt"></i></span>*@
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label>Description</label>
+                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control", @placeholder = "Enter Description" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+
+                    <div class="form-group col-md-6">
+
+                        <label>Contact No</label>
+                        @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label>Email Id</label>
+                        @Html.TextBoxFor(model => model.EmailId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label>Website</label>
+                        @Html.TextBoxFor(model => model.Websit, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Websit, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group col-md-6">
+
+                        <label>Password</label>
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", type = "password" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group col-md-6">
+
+                        <label>Project File</label>
+                        @Html.TextBoxFor(model => model.ProjectFile, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ProjectFile, "", new { @class = "text-danger" })
+
+                        @*@Html.TextBoxFor(model => model.ProjectFile, null, new { @class = "form-control", type = "file" })
+                        @Html.ValidationMessageFor(model => model.ProjectFile, "", new { @class = "text-danger" })*@
+
+                    </div>
+                    <div class="form-group col-md-6">
+
+                        <label>Contacted By</label>
+                        @Html.TextBoxFor(model => model.ContactBy, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ContactBy, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group col-md-6">
+
+                        <label>Project Manager</label>
+                        @Html.TextBoxFor(model => model.ProjectManager, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ProjectManager, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <input id="btnsbumit" type="submit" value="Submit" class="mbtn mgento mt8" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

@@ -1,0 +1,172 @@
+﻿
+@model Ags_TaskManagement.BAL.TaskMaster
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    IPagedList<Ags_TaskManagement.BAL.TaskMaster> Model = ViewData["Searchresult"] as IPagedList<Ags_TaskManagement.BAL.TaskMaster>;
+}
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--header page row-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="haedingpage">
+            <div class="leftheadcol">
+
+                <h1>Dashboard</h1>
+            </div>
+            <div class="rightsidecol">
+                <a role="button" href="/Task/TaskMaster" class="mbtn mgento"><i class="fas fa-plus"></i> Task <span>Lead</span></a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="boxstyle">
+            <div class="headbox">
+                @*<h1>Leads [@Model.TotalItemCount]</h1>*@
+            </div>
+
+            <div class="contbox tablecol">
+                @using (Html.BeginForm("SearchTaskMaster", "Task", FormMethod.Get))
+                {
+
+                    <div class="filter_tablerow">
+                        <div class="filtertable_item">
+                            <div class="form-group">
+                                <label>From Date</label>
+                                @Html.TextBoxFor(model => model.fromDate, new { @class = "form-control", @autocomplete = "off" })
+
+                            </div>
+                        </div>
+                        <div class="filtertable_item">
+                            <div class="form-group">
+                                <label>To Date</label>
+                                @Html.TextBoxFor(model => model.toDate, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="filtertable_item">
+                            <button class="mbtn">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+
+                }
+
+
+                <div class="inerdatatable table_pad">
+                    <table border="0" cellpadding="0" cellspacing="0" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Project Title</th>
+                                <th>Employee Name</th>
+                                <th>Date</th>
+                                <th>Duration</th>
+                                <th>Remark</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int count = 0; }
+
+                            @if (Convert.ToInt16(Request.QueryString["page"]) == 0)
+                            {
+                                count = 0;
+                            }
+                            else
+                            {
+                                count = (Convert.ToInt16(Request.QueryString["page"]) - 1) * 10;
+                            }
+
+                            @if (Model != null && Model.Count() != 0)
+                            {
+
+                                foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.EmployeName</td>
+                                        <td>@item.TaskTitle </td>
+                                        <td>@item.Duration</td>
+                                        <td>@item.Reamrk</td>
+
+
+                                    </tr>
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="15">No Records Found.</td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+
+                    </table>
+                </div>
+                @if (Model != null && Model.Count() != 0)
+                {
+                <div class="pagbtn">
+                    @*@Html.PagedListPager(Model, page => Url.Action("Dashboard", new { page, SourceId = Request.QueryString["SourceId"], LeadTypeID = Request.QueryString["LeadTypeID"], DespositionID = Request.QueryString["DespositionID"], fromDate = Request.QueryString["fromDate"], toDate = Request.QueryString["toDate"] }), new PagedListRenderOptions() { })*@
+                    @Html.PagedListPager(Model, page => Url.Action("Dashboard", new { page }), new PagedListRenderOptions() { })
+                </div>
+                }
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Dashboard").addClass("active");
+        });
+        $(function () {
+
+
+
+
+            $("#fromDate").datepicker({
+                beforeShowDay: function (date) {
+                    var dayOfWeek = date.getDay();
+                    // 0 : Sunday, 1 : Monday, ...
+                    //if (dayOfWeek == 0 || dayOfWeek == 6) return [false];
+                    return [true];
+                }
+            });
+
+            $("#toDate").datepicker({
+                beforeShowDay: function (date) {
+                    var dayOfWeek = date.getDay();
+                    // 0 : Sunday, 1 : Monday, ...
+                    //if (dayOfWeek == 0 || dayOfWeek == 6) return [false];
+                    return [true];
+                }
+            });
+        });
+    </script>
+
+}

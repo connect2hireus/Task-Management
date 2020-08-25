@@ -1,0 +1,159 @@
+﻿@model Ags_TaskManagement.BAL.Manager
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+//IPagedList<Ags_TaskManagement.BAL.TaskMaster> Model = ViewData["Searchresult"] as IPagedList<Ags_TaskManagement.BAL.TaskMaster>;
+}
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--header page row-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="haedingpage">
+            <div class="leftheadcol">
+
+                <h1>ASSIGNED PROJECT REPORT</h1>
+            </div>
+            <div class="rightsidecol">
+                <a role="button" href="/Marketing/CreateLead" class="mbtn mgento"><i class="fas fa-plus"></i> Quick <span>Lead</span></a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="boxstyle">
+            <div class="headbox">
+                @*<h1>Leads [@Model.TotalItemCount]</h1>*@
+            </div>
+
+            <div class="contbox tablecol">
+
+                <div class="inerdatatable table_pad">
+                    <table border="0" cellpadding="0" cellspacing="0" class="table table-hover" id="tblProject">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Project Title</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Description</th>
+                                <th>Website</th>
+                                <th>Project Manager</th>
+
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div>
+
+
+                <div class="inerdatatable table_pad">
+                    <table border="0" cellpadding="0" cellspacing="0" class="table table-hover" id="tblTask">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Project Title</th>
+                                <th>Employee Name</th>
+                                <th>Task Title</th>
+                                <th>Task Date</th>
+                                <th>Duration</th>
+                                <th>Reamrks</th>
+
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Dashboard").addClass("active");
+
+            GETPROJECTREPORT();
+            GETTASKREPORT();
+        });
+
+
+  function GETPROJECTREPORT() {
+    $.ajax({
+    type: 'POST',
+    url: '@Url.Action("ProjectInformation", "Manager")',
+    dataType: 'json',
+    success: function (result) {
+    var str = "";
+    var i = 1;
+    $.each(result, function (key, item) {
+        str += "<tr> ";
+        str += "<td>" + (i++) + "</td>";
+        str += "<td>" + item.Title  +"</td>"
+        str += "<td>" + item.StartDate +"</td>";
+        str += "<td>" + item.EndDate +"</td>";
+        str += "<td>" + item.Description +"</td>";
+        str += "<td>" + item.Website +"</td>";
+        str += "<td>" + item.ProjectManager +"</td>";
+        str += "</tr>";
+    });
+        $('#tblProject tbody').html(str);
+    // $('#dataTable1').DataTable();
+    },
+    error: function (errormessage) {
+    alert(errormessage.responseText);
+    }
+    });
+        }
+
+
+        function GETTASKREPORT() {
+    $.ajax({
+    type: 'POST',
+    url: '@Url.Action("TaskCompleteDetail", "Manager")',
+    dataType: 'json',
+    success: function (result) {
+    var str = "";
+    var i = 1;
+    $.each(result, function (key, item) {
+        str += "<tr> ";
+        str += "<td>" + (i++) + "</td>";
+        str += "<td>" + item.ProjectTitle  +"</td>"
+        str += "<td>" + item.EmployeeName +"</td>";
+        str += "<td>" + item.TaskTitle +"</td>";
+        str += "<td>" + item.TaskDate +"</td>";
+        str += "<td>" + item.Duration +"</td>";
+        str += "<td>" + item.Reamrk +"</td>";
+        str += "</tr>";
+    });
+        $('#tblTask tbody').html(str);
+    // $('#dataTable1').DataTable();
+    },
+    error: function (errormessage) {
+    alert(errormessage.responseText);
+    }
+    });
+   }
+    </script>
+
+}
